@@ -1,3 +1,22 @@
+<?php
+  define('_RECIPES_IMG_PATH_', 'uploads/recipes/'); 
+  
+  $recipes = [
+    ['title' => 'Mousse au chocolat', 'description' => 'Mousse quick example text to build on the card title and make up the bulk of the card\'s content.', 'image' => '1-chocolate-au-mousse.jpg'],
+    ['title' => 'Gratin dauphinois', 'description' => 'Gratin quick example text to build on the card title and make up the bulk of the card\'s content.', 'image' => '2-gratin-dauphinois.jpg'],
+    ['title' => 'Salade de chèvre', 'description' => 'Salade quick example text to build on the card title and make up the bulk of the card\'s content.', 'image' => '3-salade.jpg'],    
+  ];
+
+  // var_dump($recipes);
+
+  /*
+  foreach ($recipes as $key => $recipe) {
+    // var_dump($recipe);
+    echo $recipe['title'].' '.$recipe['description'].' '.$key.'<br>';
+  };
+  */
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,6 +35,7 @@
 </head>
 
 <body>
+
   <div class="container">
     <header
       class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
@@ -54,41 +74,20 @@
     </div>
 
     <div class="row">
-      <div class="col-md-4">
-        <div class="card">
-          <img src="uploads/recipes/1-chocolate-au-mousse.jpg" class="card-img-top" alt="Mousse au chocolat">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-              content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
 
+      <?php foreach ($recipes as $key => $recipe) { ?>
       <div class="col-md-4">
         <div class="card">
-          <img src="uploads/recipes/2-gratin-dauphinois.jpg" class="card-img-top" alt="Mousse au chocolat">
+          <img src="<?=_RECIPES_IMG_PATH_.$recipe['image']; ?>" class="card-img-top" alt="<?= $recipe['title']; ?>">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-              content.</p>
+            <h5 class="card-title"><?= $recipe['title']; ?></h5>
+            <p class="card-text"><?= $recipe['description']; ?></p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
         </div>
       </div>
+      <?php }; ?>
 
-      <div class="col-md-4">
-        <div class="card">
-          <img src="uploads/recipes/3-salade.jpg" class="card-img-top" alt="Mousse au chocolat">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-              content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
     </div>
 
     <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
