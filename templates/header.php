@@ -1,5 +1,8 @@
 <?php
   require_once('lib/config.php');
+
+ $currentPage = basename($_SERVER['SCRIPT_NAME']);
+
 ?>
 
 <!DOCTYPE html>
@@ -29,8 +32,10 @@
       </a>
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 nav nav-pills">
-        <li class="nav-item"><a href="index.php" class="nav-link">Accueil</a></li>
-        <li class="nav-item"><a href="recettes.php" class="nav-link">Nos recettes</a></li>
+        <li class="nav-item"><a href="index.php"
+            class="nav-link <?php if ($currentPage === 'index.php') {echo 'active';} ?>">Accueil</a></li>
+        <li class="nav-item"><a href="recettes.php"
+            class="nav-link <?php if ($currentPage === 'recettes.php') {echo 'active';} ?>">Nos recettes</a></li>
         <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
         <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
         <li class="nav-item"><a href="#" class="nav-link">About</a></li>
