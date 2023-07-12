@@ -1,5 +1,6 @@
 <?php
   require_once('templates/header.php');
+  require_once('lib/tools.php');
   require_once('lib/recipe.php');
 
   //Requête SQL avec PDO pour récupérer une recette en fonction de l'ID 
@@ -17,6 +18,9 @@
   } else {
     $imagePath = _RECIPES_IMG_PATH_.$recipe['image'];
   };
+
+  $ingredients = linesToArray($recipe['ingredients']);
+  $instructions = linesToArray($recipe['instructions']);
   
 ?>
 
@@ -28,8 +32,25 @@
   <div class="col-lg-6">
     <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><?= $recipe['title']; ?></h1>
     <p class="lead"><?= $recipe['description']; ?></p>
-
   </div>
+</div>
+
+<div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+  <h2>Ingrédients</h2>
+  <ul class="list-group">
+    <?php foreach ($ingredients as $key => $ingredient) { ?>
+    <li class="list-group-item"><?=$ingredient;?></li>
+    <?php } ?>
+  </ul>
+</div>
+
+<div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+  <h2>Instructions</h2>
+  <ol class="list-group">
+    <?php foreach ($instructions as $key => $instruction) { ?>
+    <li class="list-group-item"><?=$instruction;?></li>
+    <?php } ?>
+  </ol>
 </div>
 
 <?php
