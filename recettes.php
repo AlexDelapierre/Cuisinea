@@ -1,6 +1,8 @@
 <?php
   require_once('templates/header.php');
   require_once('lib/recipe.php');
+
+  $recipes = getRecipes($pdo);
 ?>
 
 <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
