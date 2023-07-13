@@ -12,15 +12,17 @@
   $query->execute();
   $recipe = $query->fetch();
 
-  // Image par défaut si pas d'image présente pour la recette récupéré en base de données
-  if ($recipe['image'] === null ) {
-    $imagePath = _ASSETS_IMG_PATH_.'recipe_default.jpg';
-  } else {
-    $imagePath = _RECIPES_IMG_PATH_.$recipe['image'];
-  };
+  // Condition pour vérifier que la requête fetch renvoie true, donc que la recette existe bien  
+  if ($recipe) {
+    // Image par défaut si pas d'image présente pour la recette récupéré en base de données
+    if ($recipe['image'] === null ) {
+      $imagePath = _ASSETS_IMG_PATH_.'recipe_default.jpg';
+    } else {
+      $imagePath = _RECIPES_IMG_PATH_.$recipe['image'];
+    };
 
-  $ingredients = linesToArray($recipe['ingredients']);
-  $instructions = linesToArray($recipe['instructions']);
+    $ingredients = linesToArray($recipe['ingredients']);
+    $instructions = linesToArray($recipe['instructions']);
   
 ?>
 
@@ -30,7 +32,7 @@
       height="500" loading="lazy">
   </div>
   <div class="col-lg-6">
-    <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3"><?= $recipe['title']; ?></h1>
+    <h1 class="display-5 fw-bold lh-1 mb-3"><?= $recipe['title']; ?></h1>
     <p class="lead"><?= $recipe['description']; ?></p>
   </div>
 </div>
@@ -52,6 +54,12 @@
     <?php } ?>
   </ol>
 </div>
+
+<?php } else { ?>
+<div class="row text-center">
+  <h1>Recette introuvable</h1>
+</div>
+<?php  } ?>
 
 <?php
   require_once('templates/footer.php');
