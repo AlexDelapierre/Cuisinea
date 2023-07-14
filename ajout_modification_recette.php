@@ -6,17 +6,55 @@
 
   $errors = [];
   $messages = [];
+  $recipe = [
+    'title' => '',
+    'description' => '',
+    'ingredients' => '',
+    'instructions' => '',
+    'category_id' => '',
+  ];
 
   $categories = getCategories($pdo);
 
   if(isset($_POST['saveRecipe'])) {
-    $res = saveRecipe($pdo, $_POST['category'], $_POST['title'], $_POST['description'], $_POST['ingredients'], $_POST['instructions'], $_POST['image'] );
-    
-    if($res) {
-      $messages[] = 'La recette a bien été sauvegardée'; 
-    } else {
-      $errors[] = 'La recette n\'a pas été sauvegardée';
+    $fileName = null;
+    //Si un fichier à été envoyé
+    if(isset($_FILES['file']['tmp_name']) && $_FILES['file']['tmp_name'] != '') {
+      // La méthode getImagesize va retourner false si le fichier n'est pas une image
+      $checkImage = getimagesize($_FILES['file']['tmp_name']);
+      if ($checkImage !== false) {
+        // Si c'est une image on traite
+
+        // On crée un nom de fichier unique grâce à la fonction php uniqid() et on nettoie le nom du fichier avec slugify()
+        $fileName = uniqid().'-'.slugify($_FILES['file']['name']);
+
+        // On déplace le fichier du dossier temporaire vers le dossier upload/recipes 
+        move_uploaded_file($_FILES['file']['tmp_name'], _RECIPES_IMG_PATH_.$fileName);
+
+      } else {
+        // Sinon on affiche un message d'erreur
+        $errors[] = 'Le fichier doit être une image';
+      }
     };
+
+    if (!$errors) {
+      $res = saveRecipe($pdo, $_POST['category'], $_POST['title'], $_POST['description'], $_POST['ingredients'], $_POST['instructions'], $fileName);
+      
+      if($res) {
+        $messages[] = 'La recette a bien été sauvegardée'; 
+      } else {
+        $errors[] = 'La recette n\'a pas été sauvegardée';
+      };
+    };
+
+    // Variable où on stocke les données insérées par l'utilisateur
+    $recipe = [
+      'title' => $_POST['title'],
+      'description' => $_POST['description'],
+      'ingredients' => $_POST['ingredients'],
+      'instructions' => $_POST['instructions'],
+      'category_id' => $_POST['category'],
+    ];
   }
 
 
@@ -40,25 +78,30 @@
 <form method="POST" enctype="multipart/form-data">
   <div class="mb-3">
     <label for="title" class="form-label">Titre</label>
-    <input type="text" name="title" id="title" class="form-control">
+    <input type="text" name="title" id="title" class="form-control" value="<?=$recipe['title'];?>">
   </div>
   <div class="mb-3">
     <label for="description" class="form-label">Description</label>
-    <textarea name="description" id="description" cols="30" rows="5" class="form-control"></textarea>
+    <textarea name="description" id="description" cols="30" rows="5"
+      class="form-control"><?=$recipe['description'];?></textarea>
   </div>
   <div class="mb-3">
     <label for="ingredients" class="form-label">Ingredients</label>
-    <textarea name="ingredients" id="ingredients" cols="30" rows="5" class="form-control"></textarea>
+    <textarea name="ingredients" id="ingredients" cols="30" rows="5"
+      class="form-control"><?=$recipe['ingredients'];?></textarea>
   </div>
   <div class="mb-3">
     <label for="instructions" class="form-label">Instructions</label>
-    <textarea name="instructions" id="instructions" cols="30" rows="5" class="form-control"></textarea>
+    <textarea name="instructions" id="instructions" cols="30" rows="5"
+      class="form-control"><?=$recipe['instructions'];?></textarea>
   </div>
   <div class="mb-3">
     <label for="category" class="form-label">Catégorie</label>
     <select name="category" id="category" class="form-select">
       <?php foreach ($categories as $category) { ?>
-      <option value="<?=$category['id'];?>"><?=$category['name'];?></option>
+      <option value="<?=$category['id'];?>" <?php if ($recipe['category_id'] == $category['id']) {
+        echo 'selected="selected"';
+      } ?>><?=$category['name'];?></option>
       <?php } ?>
     </select>
   </div>
