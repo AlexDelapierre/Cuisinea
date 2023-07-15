@@ -1,16 +1,20 @@
 <?php
-require_once('templates/header.php');
-require_once('lib/user.php');
+  require_once('templates/header.php');
+  require_once('lib/user.php');
 
-$errors = [];
-$messages = [];
+  $errors = [];
+  $messages = [];
 
-if (isset($_POST['addUser'])) {
+  if (isset($_POST['addUser'])) {
+    
+  $res = addUser($pdo, $_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['password']); 
   
- $res = addUser($pdo, $_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['password']); 
- 
-}
-
+    if ($res) {
+      $messages[] = 'Merci pour votre inscription';
+    } else {
+      $errors[] = 'Une erreur s\'est produite lors de votre inscription';
+    };
+  }
 ?>
 
 <h1>Inscription</h1>

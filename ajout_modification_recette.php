@@ -102,11 +102,13 @@
   <div class="mb-3">
     <label for="category" class="form-label">Catégorie</label>
     <select name="category" id="category" class="form-select">
+
       <?php foreach ($categories as $category) { ?>
-      <option value="<?=$category['id'];?>" <?php if ($recipe['category_id'] == $category['id']) {
-        echo 'selected="selected"';
-      } ?>><?=$category['name'];?></option>
+      <option value="<?=$category['id'];?>"
+        <?php if ($recipe['category_id'] == $category['id']) { echo 'selected="selected"'; } ?>><?=$category['name'];?>
+      </option>
       <?php } ?>
+
     </select>
   </div>
   <div class="mb-3">
@@ -114,6 +116,7 @@
     <input type="file" name="file" id="file">
   </div>
   <input type="submit" value="Enregistrer" name="saveRecipe" class="btn btn-primary">
+
 </form>
 
 <?php
