@@ -4,6 +4,10 @@
   require_once('lib/recipe.php');
   require_once('lib/category.php');
 
+  if (!isset($_SESSION['user'])) {
+    header('location: login.php');   
+  };
+
   $errors = [];
   $messages = [];
   $recipe = [
