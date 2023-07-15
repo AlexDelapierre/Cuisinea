@@ -5,20 +5,15 @@ require_once('lib/user.php');
 $errors = [];
 $messages = [];
 
-if (isset($_POST['loginUser'])) {
-
-  $user = verifyUserLoginPassword($pdo, $_POST['email'], $_POST['password']); 
-
-  if ($user) {
-    
-  } else {
-    $errors[] = 'Email ou mot de passe incorrect';
-  };
+if (isset($_POST['addUser'])) {
+  
+ $res = addUser($pdo, $_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['password']); 
+ 
 }
 
 ?>
 
-<h1>Connexion</h1>
+<h1>Inscription</h1>
 
 <?php foreach ($messages as $message) { ?>
 <div class="alert alert-success">
@@ -34,6 +29,16 @@ if (isset($_POST['loginUser'])) {
 
 <form method="POST" enctype="multipart/form-data">
   <div class="mb-3">
+    <label for="first_name" class="form-label">Prénom</label>
+    <input type="first_name" name="first_name" id="first_name" class="form-control">
+  </div>
+
+  <div class="mb-3">
+    <label for="last_name" class="form-label">Nom</label>
+    <input type="last_name" name="last_name" id="last_name" class="form-control">
+  </div>
+
+  <div class="mb-3">
     <label for="email" class="form-label">Email</label>
     <input type="email" name="email" id="email" class="form-control">
   </div>
@@ -43,7 +48,7 @@ if (isset($_POST['loginUser'])) {
     <input type="password" name="password" id="password" class="form-control">
   </div>
 
-  <input type="submit" value="Connexion" name="loginUser" class="btn btn-primary">
+  <input type="submit" value="Inscription" name="addUser" class="btn btn-primary">
 </form>
 
 <?php
