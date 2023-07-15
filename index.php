@@ -11,10 +11,12 @@
       loading="lazy">
   </div>
   <div class="col-lg-6">
-    <h1 class="display-5 fw-bold lh-1 mb-3">Cuisinea - Recettes de cuisine</h1>
-    <p class="lead">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis, aperiam, consequatur quos
-      voluptatem voluptatum, suscipit unde officia vel consectetur recusandae natus est? Veritatis aliquam eligendi
-      saepe repellat ratione provident eius?</p>
+    <h1 class="display-5 fw-bold lh-1 mb-3">Cuisinea - Recettes faciles</h1>
+    <p class="lead">Découvrez notre site de recettes de cuisine, une source d'inspiration pour tous les
+      passionnés de gastronomie. Explorez une collection diversifiée de recettes délicieuses, des plats traditionnels
+      aux créations innovantes, accompagnées d'instructions claires et faciles à suivre. Que vous soyez novice en
+      cuisine ou chef expérimenté, notre site est là pour vous guider vers des expériences gustatives exceptionnelles.
+    </p>
     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
       <a href="recettes.php" class="btn btn-primary">Voir nos recettes</a>
     </div>

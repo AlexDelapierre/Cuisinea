@@ -5,7 +5,7 @@
               <use xlink:href="#bootstrap"></use>
             </svg>
           </a>
-          <p class="text-muted">© 2022</p>
+          <p class="text-muted">© 2023</p>
         </div>
 
         <div class="col mb-3">
