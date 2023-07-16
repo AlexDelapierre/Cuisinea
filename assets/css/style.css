@@ -1,0 +1,5 @@
+#logo-footer {
+  display: inline-block; /* Assurez-vous que l'image est affichée en tant que bloc pour pouvoir centrer horizontalement */
+  margin: 0 auto;
+  vertical-align: middle;
+}
