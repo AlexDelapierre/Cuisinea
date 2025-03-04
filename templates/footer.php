@@ -38,7 +38,7 @@
       </div>
 
       <div class="text-center p-3 border-top">
-        ©2025 Cuisinea. Tous droits réservés.
+        ©2025 Cuisinea. 
       </div>
 
     </footer>
