@@ -10,10 +10,19 @@ if (isset($_POST['loginUser'])) {
   $user = verifyUserLoginPassword($pdo, $_POST['email'], $_POST['password']); 
 
   if ($user) {
-    // Si le  mot de passe de l'utilisateur est vérifié, on ouvre une session et on stocke les données de l'utilisateur dedant
-    // ... pour pouvoir y accéder ensuite depuis toutes les pages.
+    // Si le  mot de passe de l'utilisateur est vérifié, on ouvre une session et on stocke les données 
+    // de l'utilisateur dedant pour pouvoir y accéder ensuite depuis toutes les pages.
     $_SESSION['user'] = ['email' => $user['email'], 'last_name' => $user['last_name'], 'first_name' => $user['first_name']];
-    // Ensuite l'utilisateur connecté est redirigé vers la page d'accueil
+    
+    // Maintenant on regarde s'il y a une redirection en attente
+    if (isset($_SESSION['redirect_after_login'])) {
+      $redirectUrl = $_SESSION['redirect_after_login'];
+      unset($_SESSION['redirect_after_login']); // Nettoyer la session
+      header('Location: ' . $redirectUrl);
+      exit(); // On l'execution du script
+    }
+    
+    // Sinon, redirection par défaut
     header('location: index.php');
   } else {
     $errors[] = 'Email ou mot de passe incorrect';

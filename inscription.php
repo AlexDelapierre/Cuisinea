@@ -7,10 +7,15 @@
 
   if (isset($_POST['addUser'])) {
     
-  $res = addUser($pdo, $_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['password']); 
+  $newUser = addUser($pdo, $_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['password']); 
   
-    if ($res) {
+    if ($newUser) {
+      // Si il y a un nouvel utilisateur inscrit, on ouvre une session et on stocke les données de 
+      // l'utilisateur dedant pour pouvoir y accéder ensuite depuis toutes les pages.
+      $_SESSION['user'] = ['email' => $_POST['email'], 'last_name' => $_POST['last_name'], 'first_name' => $_POST['first_name']];  
       $messages[] = 'Merci pour votre inscription';
+      // Ensuite l'utilisateur connecté est redirigé vers la page d'accueil
+      header('Location: index.php');
     } else {
       $errors[] = 'Une erreur s\'est produite lors de votre inscription';
     };

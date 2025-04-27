@@ -5,6 +5,8 @@
   require_once('lib/category.php');
 
   if (!isset($_SESSION['user'])) {
+    // L'utilisateur n'est pas connecté : on garde en mémoire la page qu'il voulait
+    $_SESSION['redirect_after_login'] = 'ajout_modification_recette.php';
     header('location: login.php');   
   };
 
