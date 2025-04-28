@@ -1,5 +1,5 @@
 <?php
-  require_once('templates/header.php');
+  require_once('templates/base.php');
   require_once('lib/user.php');
 
   $errors = [];
@@ -13,13 +13,17 @@
       // Si il y a un nouvel utilisateur inscrit, on ouvre une session et on stocke les données de 
       // l'utilisateur dedant pour pouvoir y accéder ensuite depuis toutes les pages.
       $_SESSION['user'] = ['email' => $_POST['email'], 'last_name' => $_POST['last_name'], 'first_name' => $_POST['first_name']];  
-      $messages[] = 'Merci pour votre inscription';
+      // On enregistre le message de remerciement dans la session pour pouvoir y acceder depuis index.php
+      $_SESSION['user'] = ['message' => 'Merci pour votre inscription'];
+      // $messages[] = 'Merci pour votre inscription';
       // Ensuite l'utilisateur connecté est redirigé vers la page d'accueil
       header('Location: index.php');
+      exit(); // On arrête l'exécution du script 
     } else {
       $errors[] = 'Une erreur s\'est produite lors de votre inscription';
     };
   }
+  require_once('templates/header.php'); 
 ?>
 
 <h1>Inscription</h1>

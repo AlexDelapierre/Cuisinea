@@ -1,5 +1,5 @@
 <?php
-require_once('templates/header.php');
+require_once('templates/base.php');
 require_once('lib/user.php');
 
 $errors = [];
@@ -19,7 +19,7 @@ if (isset($_POST['loginUser'])) {
       $redirectUrl = $_SESSION['redirect_after_login'];
       unset($_SESSION['redirect_after_login']); // Nettoyer la session
       header('Location: ' . $redirectUrl);
-      exit(); // On l'execution du script
+      exit(); // On arrête l'execution du script
     }
     
     // Sinon, redirection par défaut
@@ -28,6 +28,8 @@ if (isset($_POST['loginUser'])) {
     $errors[] = 'Email ou mot de passe incorrect';
   };
 }
+
+require_once('templates/header.php');
 
 ?>
 

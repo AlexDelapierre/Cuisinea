@@ -1,8 +1,20 @@
 <?php
+  require_once('templates/base.php');
   require_once('templates/header.php');
   require_once('lib/recipe.php');
 
   $recipes = getRecipes($pdo, _HOME_RECIPES_LIMIT_);
+
+  if(isset($_SESSION['user']['message'])){
+    // echo $_SESSION['user']['message'];
+    $messages[] = $_SESSION['user']['message'];
+
+     foreach ($messages as $message) { ?>
+      <div class="alert alert-success">
+        <?=$message;?>
+      </div>
+      <?php } 
+  }   
 ?>
 
 <div class="row flex-lg-row-reverse align-items-center g-5 py-5">

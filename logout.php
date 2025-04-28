@@ -5,4 +5,4 @@ session_destroy();
 unset($_SESSION);
 
 // Pour rediriger l'utilisateur vers le formulaire de login
-header('location: login.php');
+header('location: index.php');

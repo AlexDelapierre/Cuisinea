@@ -1,14 +1,37 @@
 <?php
-  require_once('templates/header.php');
+
+/*
+<?php 
+  require_once('lib/config.php');
+  // require_once('lib/session.php');
+  require_once('lib/pdo.php');
+
+  // Vérifier si l'utilisateur est connecté **avant tout affichage**
+  if (!isset($_SESSION['user'])) {
+    // L'utilisateur n'est pas connecté : on garde en mémoire la page qu'il voulait
+    $_SESSION['redirect_after_login'] = 'ajout_modification_recette.php';
+    // Rediriger vers la page de login
+    header('Location: login.php');    
+    exit(); // On arrête l'exécution du script  
+  }
+  ?>*/
+
+  // Maintenant qu'on est sûr que l'utilisateur est connecté, on peut afficher
+  require_once('templates/base.php');
   require_once('lib/tools.php');
   require_once('lib/recipe.php');
   require_once('lib/category.php');
 
+  // Vérifier si l'utilisateur est connecté 
   if (!isset($_SESSION['user'])) {
-    // L'utilisateur n'est pas connecté : on garde en mémoire la page qu'il voulait
-    $_SESSION['redirect_after_login'] = 'ajout_modification_recette.php';
-    header('location: login.php');   
-  };
+   // L'utilisateur n'est pas connecté : on garde en mémoire la page qu'il voulait
+   $_SESSION['redirect_after_login'] = 'ajout_modification_recette.php';
+   // Rediriger vers la page de login
+   header('Location: login.php');    
+   exit(); // On arrête l'exécution du script  
+  }
+
+  require_once('templates/header.php');
 
   $errors = [];
   $messages = [];
@@ -47,9 +70,9 @@
       $res = saveRecipe($pdo, $_POST['category'], $_POST['title'], $_POST['description'], $_POST['ingredients'], $_POST['instructions'], $fileName);
       
       if($res) {
-        $messages[] = 'La recette a bien été sauvegardée'; 
+        $messages[] = 'La recette a bien été enregistrée'; 
       } else {
-        $errors[] = 'La recette n\'a pas été sauvegardée';
+        $errors[] = 'La recette n\'a pas été enregistrée';
       };
     };
 
