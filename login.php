@@ -2,16 +2,12 @@
 require_once('templates/base.php');
 require_once('lib/user.php');
 
-$errors = [];
-$messages = [];
-
 if (isset($_POST['loginUser'])) {
 
   $user = verifyUserLoginPassword($pdo, $_POST['email'], $_POST['password']); 
 
   if ($user) {
-    // Si le  mot de passe de l'utilisateur est vérifié, on ouvre une session et on stocke les données 
-    // de l'utilisateur dedant pour pouvoir y accéder ensuite depuis toutes les pages.
+    // Si le  mot de passe de l'utilisateur est vérifié, on ouvre une session avec les données de l'utilisateur
     $_SESSION['user'] = ['email' => $user['email'], 'last_name' => $user['last_name'], 'first_name' => $user['first_name']];
     
     // Maintenant on regarde s'il y a une redirection en attente
@@ -35,17 +31,7 @@ require_once('templates/header.php');
 
 <h1>Connexion</h1>
 
-<?php foreach ($messages as $message) { ?>
-<div class="alert alert-success">
-  <?=$message;?>
-</div>
-<?php } ?>
-
-<?php foreach ($errors as $error) { ?>
-<div class="alert alert-danger">
-  <?=$error;?>
-</div>
-<?php } ?>
+<?php require_once('lib/alerte.php'); ?>
 
 <form method="POST" enctype="multipart/form-data">
   <div class="mb-3">

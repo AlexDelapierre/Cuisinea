@@ -5,16 +5,11 @@
 
   $recipes = getRecipes($pdo, _HOME_RECIPES_LIMIT_);
 
+  // Si l'utilisateur est inscrit, on affiche un message de remerciement
   if(isset($_SESSION['user']['message'])){
-    // echo $_SESSION['user']['message'];
     $messages[] = $_SESSION['user']['message'];
-
-     foreach ($messages as $message) { ?>
-      <div class="alert alert-success">
-        <?=$message;?>
-      </div>
-      <?php } 
-  }   
+  }  
+  require_once('lib/alerte.php');  
 ?>
 
 <div class="row flex-lg-row-reverse align-items-center g-5 py-5">

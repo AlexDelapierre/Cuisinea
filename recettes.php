@@ -1,7 +1,7 @@
 <?php
-  require_once('templates/header.php');
+  require_once('templates/base.php');
   require_once('lib/recipe.php');
-  require_once('lib/config.php');
+  require_once('templates/header.php');
 
   // Nombre de recettes par page
   // $recipesPerPage = _RECIPES_PAGE_RECIPES_LIMIT_;

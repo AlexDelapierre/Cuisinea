@@ -1,22 +1,4 @@
 <?php
-
-/*
-<?php 
-  require_once('lib/config.php');
-  // require_once('lib/session.php');
-  require_once('lib/pdo.php');
-
-  // Vérifier si l'utilisateur est connecté **avant tout affichage**
-  if (!isset($_SESSION['user'])) {
-    // L'utilisateur n'est pas connecté : on garde en mémoire la page qu'il voulait
-    $_SESSION['redirect_after_login'] = 'ajout_modification_recette.php';
-    // Rediriger vers la page de login
-    header('Location: login.php');    
-    exit(); // On arrête l'exécution du script  
-  }
-  ?>*/
-
-  // Maintenant qu'on est sûr que l'utilisateur est connecté, on peut afficher
   require_once('templates/base.php');
   require_once('lib/tools.php');
   require_once('lib/recipe.php');
@@ -33,8 +15,6 @@
 
   require_once('templates/header.php');
 
-  $errors = [];
-  $messages = [];
   $recipe = [
     'title' => '',
     'description' => '',
@@ -63,45 +43,40 @@
       } else {
         // Sinon on affiche un message d'erreur
         $errors[] = 'Le fichier doit être une image';
+        // Variable où on stocke les données insérées par l'utilisateur pour les réafficher
+        $recipe = [
+          'title' => $_POST['title'],
+          'description' => $_POST['description'],
+          'ingredients' => $_POST['ingredients'],
+          'instructions' => $_POST['instructions'],
+          'category_id' => $_POST['category'],
+        ];
       }
     };
 
-    if (!$errors) {
-      $res = saveRecipe($pdo, $_POST['category'], $_POST['title'], $_POST['description'], $_POST['ingredients'], $_POST['instructions'], $fileName);
+    if (!isset($errors)) {
+      $recipeSave = saveRecipe($pdo, $_POST['category'], $_POST['title'], $_POST['description'], $_POST['ingredients'], $_POST['instructions'], $fileName);
       
-      if($res) {
+      if($recipeSave) {
         $messages[] = 'La recette a bien été enregistrée'; 
       } else {
         $errors[] = 'La recette n\'a pas été enregistrée';
+        // Variable où on stocke les données insérées par l'utilisateur pour les réafficher
+        $recipe = [
+          'title' => $_POST['title'],
+          'description' => $_POST['description'],
+          'ingredients' => $_POST['ingredients'],
+          'instructions' => $_POST['instructions'],
+          'category_id' => $_POST['category'],
+        ];
       };
-    };
-
-    // Variable où on stocke les données insérées par l'utilisateur
-    $recipe = [
-      'title' => $_POST['title'],
-      'description' => $_POST['description'],
-      'ingredients' => $_POST['ingredients'],
-      'instructions' => $_POST['instructions'],
-      'category_id' => $_POST['category'],
-    ];
+    };  
   }
-
-
 ?>
 
 <h1>Ajouter une recette</h1>
 
-<?php foreach ($messages as $message) { ?>
-<div class="alert alert-success">
-  <?=$message;?>
-</div>
-<?php } ?>
-
-<?php foreach ($errors as $error) { ?>
-<div class="alert alert-danger">
-  <?=$error;?>
-</div>
-<?php } ?>
+<?php require_once('lib/alerte.php'); ?>
 
 <!-- enctype permet l'envoie de fichier -->
 <form method="POST" enctype="multipart/form-data">

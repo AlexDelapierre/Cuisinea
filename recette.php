@@ -1,7 +1,8 @@
 <?php
-  require_once('templates/header.php');
+  require_once('templates/base.php');
   require_once('lib/tools.php');
   require_once('lib/recipe.php');
+  require_once('templates/header.php');
 
   // (int) sert à caster la variable (pour la transformer automatiquement en int).
   $id = (int)$_GET['id'];
