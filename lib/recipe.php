@@ -35,6 +35,20 @@
     return $query->fetchAll(); 
   }
 
+  function getRecipesWithPagination(PDO $pdo, $limit = 6, $offset = 0) {
+    $sql = 'SELECT * FROM recipes ORDER BY id DESC LIMIT :limit OFFSET :offset';
+    $query = $pdo->prepare($sql);
+    $query->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
+    $query->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
+    $query->execute();
+    return $query->fetchAll(); 
+  }
+
+  function getTotalRecipes($pdo) {
+    $query = $pdo->query('SELECT COUNT(*) FROM recipes');
+    return (int) $query->fetchColumn();
+  }
+
   // Requête SQL pour ajouter une recette
   function saveRecipe(PDO $pdo, int $category, string $title, string $description, string $ingredients, string $instructions, string|null $image) {
     $sql = "INSERT INTO `recipes` (`id`, `category_id`, `title`, `description`, `ingredients`, `instructions`, `image`) VALUES (NULL, :category_id, :title, :description, :ingredients, :instructions, :image);";
