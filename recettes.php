@@ -59,17 +59,17 @@ Pagination
 
 <div style="margin-top: 20px; display: flex; justify-content: center;">
   <?php if ($currentPage > 1): ?>
-    <a href="recettes.php?page=<?= $currentPage - 1 ?>">«</a>
+    <a href="recettes.php?page=<?= $currentPage - 1 ?>" class="pagination-link">«</a>
   <?php endif; ?>
   <?php  
     // Affichage des numéros de pages
     for ($page = $startPage; $page <= $endPage; $page++): ?>
-      <a href="recettes.php?page=<?= $page ?>" style="margin-left: 10px; <?= $page == $currentPage ? 'font-weight: bold;' : '' ?>">
+      <a href="recettes.php?page=<?= $page ?>" class="pagination-link" style="<?= $page == $currentPage ? 'font-weight: bold;' : '' ?>">
         <?= $page ?>
       </a>
   <?php endfor; ?>
   <?php if ($currentPage < $totalPages): ?>
-    <a href="recettes.php?page=<?= $currentPage + 1 ?>" style="margin-left: 10px;">»</a>
+    <a href="recettes.php?page=<?= $currentPage + 1 ?>" class="pagination-link">»</a>
   <?php endif; ?>
 
   <?php

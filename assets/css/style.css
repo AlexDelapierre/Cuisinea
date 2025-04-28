@@ -3,3 +3,10 @@
   margin: 0 auto;
   vertical-align: middle;
 }
+
+.pagination-link {
+  margin-left: 10px;
+  font-size: 1.5rem;
+  color: #ff8264;
+  text-decoration: none; /* optionnel : pour enlever le soulignement */
+}

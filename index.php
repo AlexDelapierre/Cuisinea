@@ -13,8 +13,8 @@
 ?>
 
 <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-  <div class="col-10 col-sm-8 col-lg-6">
-    <img src="assets/images/logo-cuisinea.jpg" class="d-block mx-lg-auto img-fluid" alt="Logo Cuisinea" width="350"
+  <div class="col-10 col-sm-8 col-lg-6 mx-auto">
+    <img src="assets/images/logo-cuisinea.jpg" class="d-block mx-auto img-fluid" alt="Logo Cuisinea" width="350"
       loading="lazy">
   </div>
   <div class="col-lg-6">
