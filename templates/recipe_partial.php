@@ -1,6 +1,6 @@
 <div class="col-md-4 my-2 d-flex">
   <div class="card">
-    <img src="<?=getRecipeImage($recipe['image']); ?>" class="card-img-top" alt="<?= $recipe['title']; ?>">
+    <img src="<?=getRecipeImage($recipe['image']); ?>" class="card-img-top recipe-img" alt="<?= $recipe['title']; ?>">
     <div class="card-body">
       <h2 class="card-title"><?= $recipe['title']; ?></h2>
       <p class="card-text"><?= $recipe['description']; ?></p>

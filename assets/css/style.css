@@ -10,3 +10,11 @@
   color: #ff8264;
   text-decoration: none; /* optionnel : pour enlever le soulignement */
 }
+
+/* Ajuste la hauteur minimale des images de recettes uniquement sur mobile */
+@media (max-width: 767.98px) {
+  .recipe-img {
+    min-height: 200px;
+    object-fit: cover;
+  }
+}
