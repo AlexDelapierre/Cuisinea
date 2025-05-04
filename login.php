@@ -8,7 +8,7 @@ if (isset($_POST['loginUser'])) {
 
   if ($user) {
     // Si le  mot de passe de l'utilisateur est vérifié, on ouvre une session avec les données de l'utilisateur
-    $_SESSION['user'] = ['email' => $user['email'], 'last_name' => $user['last_name'], 'first_name' => $user['first_name']];
+    $_SESSION['user'] = ['id' => $user['id'], 'email' => $user['email'], 'last_name' => $user['last_name'], 'first_name' => $user['first_name']];
     
     // Maintenant on regarde s'il y a une redirection en attente
     if (isset($_SESSION['redirect_after_login'])) {

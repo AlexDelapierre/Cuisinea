@@ -50,9 +50,10 @@
   }
 
   // Requête SQL pour ajouter une recette
-  function saveRecipe(PDO $pdo, int $category, string $title, string $description, string $ingredients, string $instructions, string|null $image) {
-    $sql = "INSERT INTO `recipes` (`id`, `category_id`, `title`, `description`, `ingredients`, `instructions`, `image`) VALUES (NULL, :category_id, :title, :description, :ingredients, :instructions, :image);";
+  function saveRecipe(PDO $pdo, int $user_id, int $category, string $title, string $description, string $ingredients, string $instructions, string|null $image) {
+    $sql = "INSERT INTO `recipes` (`user_id`, `category_id`, `title`, `description`, `ingredients`, `instructions`, `image`) VALUES (:user_id, :category_id, :title, :description, :ingredients, :instructions, :image);";
     $query = $pdo->prepare($sql);
+    $query->bindParam(':user_id', $user_id, PDO::PARAM_INT);
     $query->bindParam(':category_id', $category, PDO::PARAM_INT);
     $query->bindParam(':title', $title, PDO::PARAM_STR);
     $query->bindParam(':description', $description, PDO::PARAM_STR);
@@ -61,3 +62,27 @@
     $query->bindParam(':image', $image, PDO::PARAM_STR);
     return $query->execute();
   } 
+
+  // Requête SQL pour modifier une recette
+  function updateRecipe(PDO $pdo, int $recipe_id, int $user_id, int $category_id, string $title, string $description, string $ingredients, string $instructions, string|null $image) {
+    // Préparer la requête SQL pour mettre à jour la recette
+    $sql = "UPDATE `recipes` SET 
+            `category_id` = :category_id, 
+            `title` = :title, 
+            `description` = :description, 
+            `ingredients` = :ingredients, 
+            `instructions` = :instructions, 
+            `image` = :image
+            WHERE `id` = :id AND `user_id` = :user_id";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id', $recipe_id, PDO::PARAM_INT);
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+    $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+    $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+    $stmt->bindParam(':ingredients', $ingredients, PDO::PARAM_STR);
+    $stmt->bindParam(':instructions', $instructions, PDO::PARAM_STR);
+    $stmt->bindParam(':image', $image, PDO::PARAM_STR);
+    return $stmt->execute();
+}

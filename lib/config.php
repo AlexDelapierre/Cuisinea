@@ -21,7 +21,7 @@
   // 3. Menu principal
   $mainMenu = [
     'index.php' => 'Accueil',
-    'recettes.php' =>'Nos recettes',
-    'ajout_modification_recette.php' => 'Ajout/modif recette'
+    'recettes.php' =>'Toutes les recettes',
+    'mesRecettes.php' => 'Mes recettes'
    ];
   

@@ -33,6 +33,7 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 DROP TABLE IF EXISTS `recipes`;
 CREATE TABLE IF NOT EXISTS `recipes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
   `category_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
@@ -40,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `recipes` (
   `instructions` text NOT NULL,
   `image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  KEY `user_id` (`users_id`)
   KEY `category_id` (`category_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8;
 

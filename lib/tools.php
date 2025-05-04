@@ -1,5 +1,13 @@
 <?php
 
+// fonction de debugage personnalisée
+function debug($var) {
+  echo '<pre>';
+  var_dump($var);
+  echo '</pre>';
+  die; 
+}
+
 // fonction pour transformer une chaîne de caractère avec saut de ligne en tableau 
 function linesToArray(string $string) {
   return explode(PHP_EOL, $string);
