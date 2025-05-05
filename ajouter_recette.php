@@ -3,7 +3,6 @@
   require_once('lib/tools.php');
   require_once('lib/recipe.php');
   require_once('lib/category.php');
-  require_once('templates/header.php');
 
   $recipe = [
     'title' => '',
@@ -65,52 +64,56 @@
       };
     };  
   }
+  require_once('templates/header.php'); 
 ?>
-
-<h1>Ajouter une recette</h1>
-
-<?php require_once('lib/alerte.php'); ?>
-
-<!-- enctype permet l'envoie de fichier -->
-<form method="POST" enctype="multipart/form-data">
-  <div class="mb-3">
-    <label for="title" class="form-label">Titre</label>
-    <input type="text" name="title" id="title" class="form-control" value="<?=$recipe['title'];?>">
+<div class="container py-4">
+  <!-- Titre centré avec un peu d'espace en haut -->
+  <div class="text-center mb-4">
+        <h1 class="display-4">Ajouter une recette</h1>
   </div>
-  <div class="mb-3">
-    <label for="description" class="form-label">Description</label>
-    <textarea name="description" id="description" cols="30" rows="5"
-      class="form-control"><?=$recipe['description'];?></textarea>
-  </div>
-  <div class="mb-3">
-    <label for="ingredients" class="form-label">Ingredients</label>
-    <textarea name="ingredients" id="ingredients" cols="30" rows="5"
-      class="form-control"><?=$recipe['ingredients'];?></textarea>
-  </div>
-  <div class="mb-3">
-    <label for="instructions" class="form-label">Instructions</label>
-    <textarea name="instructions" id="instructions" cols="30" rows="5"
-      class="form-control"><?=$recipe['instructions'];?></textarea>
-  </div>
-  <div class="mb-3">
-    <label for="category" class="form-label">Catégorie</label>
-    <select name="category" id="category" class="form-select">
 
-      <?php foreach ($categories as $category) { ?>
-      <option value="<?=$category['id'];?>"
-        <?php if ($recipe['category_id'] == $category['id']) { echo 'selected="selected"'; } ?>><?=$category['name'];?>
-      </option>
-      <?php } ?>
+  <?php require_once('lib/alerte.php'); ?>
 
-    </select>
-  </div>
-  <div class="mb-3">
-    <label for="file" class="form-label">Image</label>
-    <input type="file" name="file" id="file">
-  </div>
-  <input type="submit" value="Ajouter" name="saveRecipe" class="btn btn-primary">
+  <!-- enctype permet l'envoie de fichier -->
+  <form method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="title" class="form-label">Titre</label>
+      <input type="text" name="title" id="title" class="form-control" value="<?=$recipe['title'];?>">
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea name="description" id="description" cols="30" rows="5"
+        class="form-control"><?=$recipe['description'];?></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="ingredients" class="form-label">Ingredients</label>
+      <textarea name="ingredients" id="ingredients" cols="30" rows="5"
+        class="form-control"><?=$recipe['ingredients'];?></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="instructions" class="form-label">Instructions</label>
+      <textarea name="instructions" id="instructions" cols="30" rows="5"
+        class="form-control"><?=$recipe['instructions'];?></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">Catégorie</label>
+      <select name="category" id="category" class="form-select">
 
-</form>
+        <?php foreach ($categories as $category) { ?>
+        <option value="<?=$category['id'];?>"
+          <?php if ($recipe['category_id'] == $category['id']) { echo 'selected="selected"'; } ?>><?=$category['name'];?>
+        </option>
+        <?php } ?>
+
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="file" class="form-label">Image</label>
+      <input type="file" name="file" id="file">
+    </div>
+    <input type="submit" value="Ajouter" name="saveRecipe" class="btn btn-primary">
+  </form>
+</div>
 
 <?php
   require_once('templates/footer.php');

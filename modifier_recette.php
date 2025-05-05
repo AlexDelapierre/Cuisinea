@@ -3,7 +3,6 @@
   require_once('lib/tools.php');
   require_once('lib/recipe.php');
   require_once('lib/category.php');
-  require_once('templates/header.php');
 
   if (isset($_GET['id'])) {
     $recette_id = $_GET['id'];
@@ -79,61 +78,64 @@
       ];
     };  
   }
+  require_once('templates/header.php'); 
 ?>
-
-<h1>Modifier une recette</h1>
-
-<?php require_once('lib/alerte.php'); ?>
-
-<!-- enctype permet l'envoie de fichier -->
-<form method="POST" enctype="multipart/form-data">
-  <div class="mb-3">
-    <label for="title" class="form-label">Titre</label>
-    <input type="text" name="title" id="title" class="form-control" value="<?=$recipe['title'];?>">
+<div class="container py-4">
+  <!-- Titre centré avec un peu d'espace en haut -->
+  <div class="text-center mb-4">
+        <h1 class="display-4">Modifier une recette</h1>
   </div>
-  <div class="mb-3">
-    <label for="description" class="form-label">Description</label>
-    <textarea name="description" id="description" cols="30" rows="5"
-      class="form-control"><?=$recipe['description'];?></textarea>
-  </div>
-  <div class="mb-3">
-    <label for="ingredients" class="form-label">Ingredients</label>
-    <textarea name="ingredients" id="ingredients" cols="30" rows="5"
-      class="form-control"><?=$recipe['ingredients'];?></textarea>
-  </div>
-  <div class="mb-3">
-    <label for="instructions" class="form-label">Instructions</label>
-    <textarea name="instructions" id="instructions" cols="30" rows="5"
-      class="form-control"><?=$recipe['instructions'];?></textarea>
-  </div>
-  <div class="mb-3">
-    <label for="category" class="form-label">Catégorie</label>
-    <select name="category" id="category" class="form-select">
-
-      <?php foreach ($categories as $category) { ?>
-      <option value="<?=$category['id'];?>"
-        <?php if ($recipe['category_id'] == $category['id']) { echo 'selected="selected"'; } ?>><?=$category['name'];?>
-      </option>
-      <?php } ?>
-
-    </select>
-  </div>
-
-  <?php if (!empty($result['image'])): ?>
-  <div class="mb-3">
-    <p>Image actuelle :</p>
-    <img src="<?= _RECIPES_IMG_PATH_ . $result['image']; ?>" alt="Image actuelle" style="max-width: 200px;">
-  </div>
-  <?php endif; ?>
   
-  <div class="mb-3">
-    <label for="file" class="form-label">Image</label>
-    <input type="file" name="file" id="file">
-  </div>
-  <input type="submit" value="Modifier" name="saveRecipe" class="btn btn-primary">
+  <?php require_once('lib/alerte.php'); ?>
 
-</form>
+  <!-- enctype permet l'envoie de fichier -->
+  <form method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="title" class="form-label">Titre</label>
+      <input type="text" name="title" id="title" class="form-control" value="<?=$recipe['title'];?>">
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea name="description" id="description" cols="30" rows="5"
+        class="form-control"><?=$recipe['description'];?></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="ingredients" class="form-label">Ingredients</label>
+      <textarea name="ingredients" id="ingredients" cols="30" rows="5"
+        class="form-control"><?=$recipe['ingredients'];?></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="instructions" class="form-label">Instructions</label>
+      <textarea name="instructions" id="instructions" cols="30" rows="5"
+        class="form-control"><?=$recipe['instructions'];?></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">Catégorie</label>
+      <select name="category" id="category" class="form-select">
 
+        <?php foreach ($categories as $category) { ?>
+        <option value="<?=$category['id'];?>"
+          <?php if ($recipe['category_id'] == $category['id']) { echo 'selected="selected"'; } ?>><?=$category['name'];?>
+        </option>
+        <?php } ?>
+
+      </select>
+    </div>
+
+    <?php if (!empty($result['image'])): ?>
+    <div class="mb-3">
+      <p>Image actuelle :</p>
+      <img src="<?= _RECIPES_IMG_PATH_ . $result['image']; ?>" alt="Image actuelle" style="max-width: 200px;">
+    </div>
+    <?php endif; ?>
+    
+    <div class="mb-3">
+      <label for="file" class="form-label">Image</label>
+      <input type="file" name="file" id="file">
+    </div>
+    <input type="submit" value="Modifier" name="saveRecipe" class="btn btn-primary">
+  </form>
+</div>
 <?php
   require_once('templates/footer.php');
 ?>

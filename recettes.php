@@ -29,6 +29,7 @@
   
   // $recipes = getRecipes($pdo);
 ?>
+
 <div class="container py-4">
   <!-- Titre centré avec un peu d'espace en haut -->
   <div class="text-center mb-4">
@@ -41,7 +42,7 @@
     }; ?>
   </div>
 
-  Pagination
+  <!-- Pagination -->
 
   <?php
   /*

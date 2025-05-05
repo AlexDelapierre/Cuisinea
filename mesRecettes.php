@@ -40,7 +40,7 @@
     <!-- Liste des recettes de l'utilisateur avec des cartes -->
     <div class="row">
         <?php if (empty($recipes)): ?>
-            <p>Aucune recette trouvée. Ajoute-en une !</p>
+            <p style="text-align: center;">Aucune recette trouvée. Ajoutez-en une !</p>
         <?php else: ?>
             <?php foreach ($recipes as $recipe): ?>
                 <div class="col-12 col-md-4 my-2">
