@@ -21,12 +21,12 @@
   $stmt = $pdo->prepare($query);
   $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
   $stmt->execute();
-  $recettes = $stmt->fetchAll();
+  $recipes = $stmt->fetchAll();
 
   // debug($recettes);
 ?>
 
-<div class="container py-5">
+<div class="container py-4">
     <!-- Titre centré avec un peu d'espace en haut -->
     <div class="text-center mb-4">
         <h1 class="display-4">Mes recettes</h1>
@@ -34,26 +34,26 @@
 
     <!-- Bouton centré sous le titre -->
     <div class="text-center mb-4">
-        <a href="ajouter_recette.php" class="btn btn-primary btn-lg">Ajouter une nouvelle recette</a>
+        <a href="ajouter_recette.php" class="btn btn-primary btn-lg">Ajouter une recette</a>
     </div>
 
     <!-- Liste des recettes de l'utilisateur avec des cartes -->
     <div class="row">
-        <?php if (empty($recettes)): ?>
+        <?php if (empty($recipes)): ?>
             <p>Aucune recette trouvée. Ajoute-en une !</p>
         <?php else: ?>
-            <?php foreach ($recettes as $recette): ?>
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm">
-                        <!-- Image de la recette (si disponible) -->
-                        <img src="<?= !empty($recette['image']) ? _RECIPES_IMG_PATH_.$recette['image'] : 'default-image.jpg' ?>" class="card-img-top" alt="Image de la recette">
-
+            <?php foreach ($recipes as $recipe): ?>
+                <div class="col-12 col-md-4 my-2">
+                    <div class="card">
+                        <img src="<?=getRecipeImage($recipe['image']); ?>" class="card-img-top" alt="<?= $recipe['title']; ?>">
                         <div class="card-body">
-                            <h5 class="card-title"><?= htmlspecialchars($recette['title']); ?></h5>
-                            <p class="card-text"><?= htmlspecialchars($recette['description']); ?></p>
-                            <a href="recette.php?id=<?= $recette['id']; ?>" class="btn btn-info btn-sm">Afficher</a>
-                            <a href="modifier_recette.php?id=<?= $recette['id']; ?>" class="btn btn-warning btn-sm">Modifier</a>
-                            <a href="supprimer_recette.php?id=<?= $recette['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')">Supprimer</a>
+                            <h2 class="card-title"><?= $recipe['title']; ?></h2>
+                            <p class="card-text"><?= $recipe['description']; ?></p>
+                            <div class="card-buttons">
+                                <a href="recette.php?id=<?= $recipe['id']; ?>" class="btn btn-info btn-sm">Afficher</a>
+                                <a href="modifier_recette.php?id=<?= $recipe['id']; ?>" class="btn btn-warning btn-sm">Modifier</a>
+                                <a href="supprimer_recette.php?id=<?= $recipe['id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette recette ?')">Supprimer</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -61,6 +61,10 @@
         <?php endif; ?>
     </div>
 </div>
+
+<?php
+  require_once('templates/footer.php');
+?>
 
 <!-- Ajout de Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-GLhlTQ8iRABWoA9tG6pXk96pG8hLZl9OO8f/9EkM3CS0m0OeH7wU7V8cVb6z5Cvs" crossorigin="anonymous"></script>

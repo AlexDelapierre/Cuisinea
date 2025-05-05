@@ -1,0 +1,71 @@
+#logo-footer {
+  display: inline-block; /* Assurez-vous que l'image est affichée en tant que bloc pour pouvoir centrer horizontalement */
+  margin: 0 auto;
+  vertical-align: middle;
+}
+
+.pagination-link {
+  margin-left: 10px;
+  font-size: 1.3rem;
+  color: #ff8264;
+  text-decoration: none; /* optionnel : pour enlever le soulignement */
+}
+
+/*-----------Bootstrap cards--------------------*/
+.recipe-card {
+   /*width: 100%;           pour occuper toute la largeur de la colonne */
+ /* min-height: 100%;       assure que toutes les cards ont la même hauteur */
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligne les éléments enfants (y compris la description) à gauche */
+}
+
+.recipe-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  /* object-position: center; */
+}
+
+/* Ajuste la hauteur minimale des images de recettes uniquement sur mobile */
+/* @media (max-width: 576px) {
+  .recipe-img {
+    height: 8rem; 
+  }
+}
+@media (max-width: 767.98px) {
+  .recipe-img {
+    min-height: 200px;
+    object-fit: cover;
+  }
+} */
+
+.card-title {
+  font-size: 1.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0.5rem;
+}
+
+.recipe-description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* nombre de lignes visibles */
+  -webkit-box-orient: vertical;
+  min-height: 4.5em; /* pour aligner visuellement toutes les cards */
+  margin-bottom: 1rem;
+  text-align: left; /* S'assure que le texte est aligné à gauche */
+  width: 100%; /* Force la description à occuper toute la largeur disponible */
+}
+
+.btn-center {
+  width: auto;  /* Empêche l'étirement */
+}
+

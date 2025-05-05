@@ -11,10 +11,53 @@
   text-decoration: none; /* optionnel : pour enlever le soulignement */
 }
 
-/* Ajuste la hauteur minimale des images de recettes uniquement sur mobile */
-@media (max-width: 767.98px) {
-  .recipe-img {
-    min-height: 200px;
-    object-fit: cover;
+/*-----------Bootstrap cards--------------------*/
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card img {
+  width: 100%;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 575.98px) {
+  .card img {
+    min-height: 200px; /* Ajuste selon le rendu souhaité */
   }
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-title {
+  margin: 0 0 0.5em 0;
+}
+
+.card-text {
+  flex-shrink: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 1em;
+}
+
+.card a.btn {
+  margin-top: auto;
+  align-self: start; 
+  /* align-self: center; */
+}
+
+.card-buttons {
+  display: flex;
+  gap: 0.5em;
+  justify-content: center; /* ou 'space-between' ou 'flex-start' selon le rendu souhaité */
+  flex-wrap: wrap; /* utile si ça déborde en mobile */
+  margin-top: auto;
 }
