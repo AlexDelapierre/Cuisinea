@@ -12,15 +12,15 @@ Le projet est en cours de développement. À ce jour, l’inscription et la conn
 
 ### ✅ Fonctionnalités déjà mises en place :
 - Système d’inscription et d’authentification
-- Ajout de recettes avec formulaire
+- Espace membre personnalisé
+- Gestion CRUD des recettes (création, modification, suppression via formulaire)
 - Upload d’image associée à une recette
 - Affichage des recettes
 
 ### 🛠️ Fonctionnalités en cours / à venir :
 - Espace administrateur
-- Espace membre personnalisé
-- Modification et suppression de ses propres recettes
-- Sécurisation des accès et des données
+- Filtrage dynamique des recettes par catégories
+- Barre de recherche textuelle pour retrouver une recette
 
 ## 🧰 Technologies utilisées
 
