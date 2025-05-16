@@ -1,15 +1,19 @@
 <?php
   require_once('templates/base.php');
   require_once('templates/header.php');
-  require_once('lib/recipe.php');
+  require_once __DIR__ . '/vendor/autoload.php';
+  use App\Repository\RecetteRepository;
 
-  $recipes = getRecipes($pdo, _HOME_RECIPES_LIMIT_);
+  // $recipes = getRecipes($pdo, _HOME_RECIPES_LIMIT_);
+  $recetteRepository = new RecetteRepository($pdo);
+  $limit = _HOME_RECIPES_LIMIT_;
+  $recipes = $recetteRepository->getAll($limit);
 
   // Si l'utilisateur est inscrit, on affiche un message de remerciement
   if(isset($_SESSION['user']['message'])){
     $messages[] = $_SESSION['user']['message'];
   }  
-  require_once('lib/alerte.php');  
+  require_once('src/Service/alerte.php');  
 ?>
 
 <div class="row flex-lg-row-reverse align-items-center g-5 py-5">

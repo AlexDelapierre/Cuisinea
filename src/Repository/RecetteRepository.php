@@ -43,38 +43,6 @@ class RecetteRepository
   }
 
   /**
-   * Récupérer toutes les recettes d'un utilisateur
-   *
-   * @param int $userId
-   * @return array
-   */
-  public function getAllByUser(int $userId): array
-  {
-      $query = "SELECT * FROM recipes WHERE user_id = :user_id ORDER BY created_at DESC";
-      $stmt = $this->pdo->prepare($query);
-      $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-      $stmt->execute();
-
-      return $stmt->fetchAll(PDO::FETCH_ASSOC);
-  }
-
-  /**
-   * Récupérer une recette par son ID
-   *
-   * @param int $recetteId
-   * @return array|null
-   */
-  public function getById(int $recetteId): ?array
-  {
-      $query = "SELECT * FROM recipes WHERE id = :id";
-      $stmt = $this->pdo->prepare($query);
-      $stmt->bindParam(':id', $recetteId, PDO::PARAM_INT);
-      $stmt->execute();
-
-      return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
-  }
-
-  /**
    * Mettre à jour une recette
    *
    * @param int $recetteId
@@ -122,4 +90,61 @@ class RecetteRepository
       
       return $stmt->execute();
   }
+
+  /**
+   * Récupérer toutes les recettes d'un utilisateur
+   *
+   * @param int $userId
+   * @return array
+   */
+  public function getAllByUser(int $userId): array
+  {
+      $query = "SELECT * FROM recipes WHERE user_id = :user_id ORDER BY created_at DESC";
+      $stmt = $this->pdo->prepare($query);
+      $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+      $stmt->execute();
+
+      return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  /**
+   * Récupérer une recette par son ID
+   *
+   * @param int $recetteId
+   * @return array|null
+   */
+  public function getById(int $recetteId): ?array
+  {
+      $query = "SELECT * FROM recipes WHERE id = :id";
+      $stmt = $this->pdo->prepare($query);
+      $stmt->bindParam(':id', $recetteId, PDO::PARAM_INT);
+      $stmt->execute();
+
+      return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+  }
+
+    /**
+     * Récupérer toutes les recettes, avec une option de limitation
+     *
+     * @param int|null $limit
+     * @return array
+     */
+    public function getAll(int $limit = null): array
+    {
+        $sql = 'SELECT * FROM recipes ORDER BY id DESC';
+
+        if ($limit !== null) {
+            $sql .= ' LIMIT :limit';
+        }
+
+        $stmt = $this->pdo->prepare($sql);
+
+        if ($limit !== null) {
+            $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        }
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
