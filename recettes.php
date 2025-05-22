@@ -1,7 +1,12 @@
 <?php
   require_once('templates/base.php');
-  require_once('lib/recipe.php');
+  require_once('src/Repository/RecetteRepository.php');
   require_once('templates/header.php');
+  require_once __DIR__ . '/vendor/autoload.php';
+  use App\Repository\RecetteRepository;
+
+  // $recipes = getRecipes($pdo, _HOME_RECIPES_LIMIT_);
+  $recetteRepository = new RecetteRepository($pdo);
 
   // Nombre de recettes par page
   // $recipesPerPage = _RECIPES_PAGE_RECIPES_LIMIT_;
@@ -17,10 +22,10 @@
   $offset = ($currentPage - 1) * $recipesPerPage;
   
   // Récupérer les recettes pour la page en cours
-  $recipes = getRecipesWithPagination($pdo, $recipesPerPage, $offset);
+  $recipes = $recetteRepository->getAllWithPagination($pdo, $recipesPerPage, $offset);
   
   // Récupérer le nombre total de recettes pour savoir combien de pages il faut
-  $totalRecipes = getTotalRecipes($pdo);
+  $totalRecipes = $recetteRepository->getAll($pdo);
   $totalPages = ceil($totalRecipes / $recipesPerPage);
 
   // Calculer les numéros de pages à afficher (max 10 pages)

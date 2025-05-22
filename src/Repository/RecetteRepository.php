@@ -92,22 +92,6 @@ class RecetteRepository
   }
 
   /**
-   * Récupérer toutes les recettes d'un utilisateur
-   *
-   * @param int $userId
-   * @return array
-   */
-  public function getAllByUser(int $userId): array
-  {
-      $query = "SELECT * FROM recipes WHERE user_id = :user_id ORDER BY created_at DESC";
-      $stmt = $this->pdo->prepare($query);
-      $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
-      $stmt->execute();
-
-      return $stmt->fetchAll(PDO::FETCH_ASSOC);
-  }
-
-  /**
    * Récupérer une recette par son ID
    *
    * @param int $recetteId
@@ -131,13 +115,13 @@ class RecetteRepository
      */
     public function getAll(int $limit = null): array
     {
-        $sql = 'SELECT * FROM recipes ORDER BY id DESC';
+        $query = 'SELECT * FROM recipes ORDER BY id DESC';
 
         if ($limit !== null) {
-            $sql .= ' LIMIT :limit';
+            $query .= ' LIMIT :limit';
         }
 
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = $this->pdo->prepare($query);
 
         if ($limit !== null) {
             $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
@@ -146,5 +130,36 @@ class RecetteRepository
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    /**
+   * Récupérer toutes les recettes d'un utilisateur
+   *
+   * @param int $userId
+   * @return array
+   */
+  public function getAllByUser(int $userId): array
+  {
+      $query = "SELECT * FROM recipes WHERE user_id = :user_id ORDER BY created_at DESC";
+      $stmt = $this->pdo->prepare($query);
+      $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+      $stmt->execute();
+
+      return $stmt->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+  public function getAllWithPagination($limit = 6, $offset = 0) {
+    $query = 'SELECT * FROM recipes ORDER BY id DESC LIMIT :limit OFFSET :offset';
+    $stmt = $this->pdo->prepare($query);
+    $stmt->bindValue(':limit', (int) $limit, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', (int) $offset, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(); 
+  }
+
+  public function getTotalNumber() {
+    $query = 'SELECT COUNT(*) FROM recipes';
+    $stmt = $this->pdo->prepare($query);
+    return (int) $stmt->fetchColumn();
+  }
 
 }
